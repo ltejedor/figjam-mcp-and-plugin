@@ -1,4 +1,4 @@
-# FigJam MCP Bridge
+# FigJam MCP Server and Plugin (Bridge)
 
 A **minimal Multi‑Cursor Protocol (MCP) server** that lets any downstream client—such as the companion FigJam plug‑in—spawn sticky notes programmatically.  
 It’s perfect for rapid prototyping, white‑boarding bots, or teaching workshops where you want live content to appear on a shared canvas.

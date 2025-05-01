@@ -15,6 +15,9 @@ It's perfect for rapid prototyping, white‑boarding bots, or teaching workshops
 
 ---
 
+## Figma Plugin Guide
+https://help.figma.com/hc/en-us/articles/360042786733-Create-a-plugin-for-development
+
 ## Quick‑start
 
 ### 1 · Clone & set up Python env

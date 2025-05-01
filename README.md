@@ -42,7 +42,7 @@ $ python main.py --port 8787
 ```
 
 ### 4 · Install & run the FigJam plug‑in
-1. Open any FigJam file
+1. Open any FigJam file **in the Figma desktop app**
 2. **Resources → Development → Import plugin from manifest** and select the `MCPJam/manifest.json` file
 3. Run the plugin from the Resources panel → Development → MCPJam
 

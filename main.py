@@ -31,13 +31,86 @@ def create_sticky(text: str, x: int = 0, y: int = 0) -> str:
     resp.raise_for_status()
     data = resp.json()
     return data.get("result", "")
+    
+@tool
+def move_node(id: str, x: int = 0, y: int = 0) -> str:
+    """
+    Enqueue a 'move_node' command via the MCP HTTP endpoint.
+
+    Args:
+        id: The ID of the node to move.
+        x: The new x-coordinate.
+        y: The new y-coordinate.
+
+    Returns:
+        str: A status message, typically "queued".
+    """
+    resp = requests.get(
+        "http://localhost:8787/mcp/move_node",
+        params={"id": id, "x": x, "y": y},
+        timeout=5,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("result", "")
+
+@tool
+def start_timer(seconds: int) -> str:
+    """
+    Enqueue a 'start_timer' command via the MCP HTTP endpoint.
+
+    Args:
+        seconds: The timer duration in seconds.
+
+    Returns:
+        str: A status message, typically "queued".
+    """
+    resp = requests.get(
+        "http://localhost:8787/mcp/start_timer",
+        params={"seconds": seconds},
+        timeout=5,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("result", "")
+
+@tool
+def create_connector(start_id: str | None = None, end_id: str | None = None) -> str:
+    """
+    Enqueue a 'create_connector' command via the MCP HTTP endpoint.
+
+    Args:
+        start_id: Optional start node ID to connect.
+        end_id: Optional end node ID to connect.
+
+    Returns:
+        str: A status message, typically "queued".
+    """
+    params = {}
+    if start_id is not None:
+        params["start_id"] = start_id
+    if end_id is not None:
+        params["end_id"] = end_id
+    resp = requests.get(
+        "http://localhost:8787/mcp/create_connector",
+        params=params,
+        timeout=5,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("result", "")
 
 def main():
     # Initialize the LLM model (Anthropic Claude)
     model = LiteLLMModel(model_id="anthropic/claude-3-7-sonnet-latest")
 
     # Collect HTTP-backed MCP tools
-    tool_collection = ToolCollection([create_sticky])
+    tool_collection = ToolCollection([
+        create_sticky,
+        move_node,
+        start_timer,
+        create_connector,
+    ])
     print("Available tools:", [t.name for t in tool_collection.tools])
 
     # Create the agent with discovered tools
